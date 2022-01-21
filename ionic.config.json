@@ -1,5 +1,7 @@
 {
   "name": "books",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
