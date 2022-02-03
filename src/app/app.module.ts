@@ -9,8 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}, Geolocation],
   bootstrap: [AppComponent],
 })
 export class AppModule {

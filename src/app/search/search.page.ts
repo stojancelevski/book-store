@@ -1,47 +1,51 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BooksApiService } from '../books-api.service';
 import { Book, Favourites } from '../models/books';
 import { FirebaseService } from '../firebase.service';
-import { Storage } from '@ionic/storage-angular';
 import { ToastService } from '../toast.service';
-import { Subscription } from 'rxjs';
-import { IonRouterOutlet, Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-search',
+  templateUrl: './search.page.html',
+  styleUrls: ['./search.page.scss'],
 })
-export class HomePage implements OnInit, OnDestroy {
+export class SearchPage implements OnInit {
+  searchForm: FormGroup;
   books: Book[];
   favourites: Favourites[];
   currentUser: string;
-  subscription: Subscription;
 
-  constructor(private api: BooksApiService,
+  constructor(private fb: FormBuilder,
+              private storage: Storage,
               private toastService: ToastService,
               private firebaseService: FirebaseService,
-              private platform: Platform,
-              private storage: Storage) {
-    this.subscription = this.platform.backButton.subscribe(() => {
-      navigator['app'].exitApp();
-    });
-  }
+              private api: BooksApiService) { }
 
   ngOnInit() {
+    this.firebaseService.getFavouritesList().subscribe(x => {
+      this.favourites = x;
+    });
     this.storage.get('loggedUser').then(x => {
       this.currentUser = x;
     });
-    this.firebaseService.getFavouritesList().subscribe(x => {
-      this.favourites = x;
-      this.api.getBooks().subscribe(y => {
-        this.books = y.books;
-      });
+    this.searchForm = this.fb.group({
+      search: ['', Validators.required]
     });
+  }
+
+  search() {
+    if (this.searchForm.valid) {
+      this.api.searchBooks(this.searchForm.controls.search.value).subscribe(x => {
+        this.books = x.books;
+      });
+    }
   }
 
   addToFavourites(isbn: string) {
     const match = this.books.find(book => book.isbn13 === isbn);
+    const index = this.books.indexOf(match);
     this.firebaseService.createFavourite(
       {
         title: match.title,
@@ -50,6 +54,7 @@ export class HomePage implements OnInit, OnDestroy {
         price: match.price,
         image: match.image,
         url: match.url,
+        favourites: true,
         userUid: this.currentUser
       });
     this.toastService.presentToast('This book is added to your favourites');
@@ -61,13 +66,11 @@ export class HomePage implements OnInit, OnDestroy {
 
   removeFavourites(isbn: string) {
     const match = this.favourites.find(w => w.isbn13 === isbn && w.userUid === this.currentUser);
+    const book = this.books.find(w => w.isbn13 === isbn);
+    const index = this.books.indexOf(book);
     if (match !== undefined) {
       this.firebaseService.deleteFavourite(match.key);
       this.toastService.presentToast('This book is removed from your favourites');
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

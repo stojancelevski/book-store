@@ -9,34 +9,23 @@
 
 <ion-content>
   <ng-container *ngFor="let book of favourites">
-    <ion-card>
-      <img [src]="book.image"/>
-      <ion-card-content>
+    <ion-card style="text-align: center">
+      <img [routerLink]="['book-details', book.isbn13]"  [src]="book.image"/>
+      <ion-card-content [routerLink]="['book-details', book.isbn13]" >
         <ion-card-title>
           {{book.title}}
         </ion-card-title>
-        <p>
-          {{book.subtitle}}
-        </p>
       </ion-card-content>
 
-      <ion-row>
+      <ion-row style="text-align: center">
+        <ion-col>
+        </ion-col>
         <ion-col>
           <ion-button (click)="removeFavourites(book.isbn13)">
             <ion-icon name="heart"></ion-icon>
           </ion-button>
         </ion-col>
-        <ion-col align-self-center text-center>
-          <ion-button [disabled]="true">
-            <ion-note style="color:white">
-              {{book.price}}
-            </ion-note>
-          </ion-button>
-        </ion-col>
         <ion-col>
-          <ion-button>
-            <a href="{{book.url}}" target="_blank" style="color: black">Buy</a>
-          </ion-button>
         </ion-col>
       </ion-row>
     </ion-card>

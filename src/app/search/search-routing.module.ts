@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { FavouritesPage } from './favourites.page';
+import { SearchPage } from './search.page';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
     path: '',
-    component: FavouritesPage
+    component: SearchPage
   },
   {
     path: 'book-details/:id',
@@ -15,7 +16,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes),
+    ],
   exports: [RouterModule],
 })
-export class FavouritesPageRoutingModule {}
+export class SearchPageRoutingModule {
+}

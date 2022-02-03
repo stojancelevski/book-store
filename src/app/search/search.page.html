@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Search a book</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="searchForm">
+    <ion-item>
+      <ion-label position="floating">Keyword</ion-label>
+      <ion-input type="text" formControlName="search"></ion-input>
+    </ion-item>
+
+    <ion-button shape="block" color="primary" [disabled]="!searchForm.valid" (click)="search()">
+      Search
+    </ion-button>
+  </form>
+
+  <ng-container *ngFor="let book of books">
+    <ion-card >
+
+      <ion-card-header [routerLink]="['book-details', book.isbn13]">
+        {{book.title}}
+      </ion-card-header>
+
+      <ion-card-content [routerLink]="['book-details', book.isbn13]">
+        {{book.subtitle}}
+      </ion-card-content>
+
+      <ion-row style="text-align: center">
+        <ion-col>
+        </ion-col>
+        <ng-container *ngIf="!itIsInFavorites(book.isbn13)">
+          <ion-button (click)="addToFavourites(book.isbn13)">
+            <ion-icon name="heart-outline"></ion-icon>
+          </ion-button>
+        </ng-container>
+        <ng-container *ngIf="itIsInFavorites(book.isbn13)">
+          <ion-button (click)="removeFavourites(book.isbn13)">
+            <ion-icon name="heart"></ion-icon>
+          </ion-button>
+        </ng-container>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ng-container>
+</ion-content>

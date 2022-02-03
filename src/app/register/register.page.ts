@@ -43,7 +43,7 @@ export class RegisterPage implements OnInit {
       this.registerForm.reset();
       this.menuCtrl.enable(true);
       this.router.navigate(['/login'], {replaceUrl: true});
-      this.toastService.presentToast('Welcome back');
+      this.toastService.presentToast('Succesfully, please log in!');
     }, err => {
       this.toastService.presentToast('Please enter a valid email and password');
     });

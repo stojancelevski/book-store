@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="isHome ? '/home' : isSearch ? '/search' : '/favourites'">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{bookDetails?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="bookDetails != null" style="text-align: center">
+    <ion-item>
+      <h2>{{bookDetails.authors}}</h2>
+      <p style=" padding-left: 120px">Published on {{bookDetails.year}}</p>
+    </ion-item>
+
+    <img [src]="bookDetails.image">
+
+    <ion-card-content>
+      <p>{{bookDetails.desc}}</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <ion-button class="icon-start clear small" [disabled]="true">
+          <ion-icon name="star"></ion-icon>
+          <div style="padding-left: 14px; font-size: 25px;">{{bookDetails.rating}}</div>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button class="icon-start clear small" [disabled]="true">
+          <ion-icon name="card-outline" ></ion-icon>
+          <div style="padding-left: 8px; font-size: 19px;">{{bookDetails.price}}</div>
+        </ion-button>
+      </ion-col>
+      <ion-col style=" padding-top: 21px;">
+        <ion-note>
+          {{bookDetails.pages}} Pages
+        </ion-note>
+      </ion-col>
+    </ion-row>
+    <ion-footer class="ion-no-border">
+      <ion-toolbar style="text-align: center">
+        <ion-title routerLink="/map">Buy at {{bookDetails.bookstore}}</ion-title>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-card>
+</ion-content>

@@ -3,48 +3,37 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>New Releases</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ng-container *ngFor="let book of books">
     <ion-card>
-      <img [src]="book.image"/>
-      <ion-card-content>
+      <div style="text-align: center">
+        <img [routerLink]="['book-details', book.isbn13]" [src]="book.image"/>
+      </div>
+      <ion-card-content [routerLink]="['book-details', book.isbn13]">
         <ion-card-title>
           {{book.title}}
         </ion-card-title>
-        <p>
-          {{book.subtitle}}
-        </p>
       </ion-card-content>
 
-      <ion-row>
+      <ion-row style="text-align: center">
+        <ion-col></ion-col>
         <ion-col>
-          <ng-container *ngIf="!book.favourites" >
+          <ng-container *ngIf="!itIsInFavorites(book.isbn13)">
             <ion-button (click)="addToFavourites(book.isbn13)">
               <ion-icon name="heart-outline"></ion-icon>
             </ion-button>
           </ng-container>
-          <ng-container *ngIf="book.favourites" >
+          <ng-container *ngIf="itIsInFavorites(book.isbn13)">
             <ion-button (click)="removeFavourites(book.isbn13)">
               <ion-icon name="heart"></ion-icon>
             </ion-button>
           </ng-container>
         </ion-col>
-        <ion-col align-self-center text-center>
-          <ion-button [disabled]="true">
-            <ion-note style="color:white">
-              {{book.price}}
-            </ion-note>
-          </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button>
-            <a href="{{book.url}}" target="_blank" style="color: black">Buy</a>
-          </ion-button>
-        </ion-col>
+        <ion-col></ion-col>
       </ion-row>
     </ion-card>
   </ng-container>

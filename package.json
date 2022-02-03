@@ -20,9 +20,15 @@
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
+    "@ionic-native/core": "^4.1.0",
+    "@ionic-native/geolocation": "^4.20.0",
+    "@ionic-native/in-app-browser": "^4.20.0",
     "@ionic/angular": "^6.0.0",
     "@ionic/storage-angular": "^3.0.6",
+    "@syncfusion/ej2-angular-maps": "^19.4.42",
     "cordova-android": "9.1.0",
+    "cordova-plugin-geolocation": "4.1.0",
+    "cordova-plugin-inappbrowser": "5.0.0",
     "cordova-sqlite-storage": "6.0.0",
     "firebase": "^9.6.4",
     "rxjs": "~6.6.0",
@@ -74,7 +80,12 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you",
+        "GPS_REQUIRED": "true"
+      }
     },
     "platforms": [
       "android"

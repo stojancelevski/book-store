@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Stores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ejs-maps id="rn-container" style="display:block" [zoomSettings]="zoomSettings" [centerPosition]="centerPosition"
+            height='100%' width='100%'>
+    <e-layers>
+      <e-layer [layerType]="layerType" [tooltipSettings]="tooltipSettings" [bingMapType]="bingMapType" [key]="key"
+               [markerSettings]="markerSettings"></e-layer>
+    </e-layers>
+  </ejs-maps>
+</ion-content>
