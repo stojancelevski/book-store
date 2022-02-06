@@ -54,7 +54,6 @@ export class SearchPage implements OnInit {
         price: match.price,
         image: match.image,
         url: match.url,
-        favourites: true,
         userUid: this.currentUser
       });
     this.toastService.presentToast('This book is added to your favourites');

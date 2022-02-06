@@ -25,8 +25,9 @@ export class FavouritesPage implements OnInit {
   ngOnInit() {
     this.storage.get('loggedUser').then(x => {
       this.currentUser = x;
-      this.firebaseService.getFavouritesList().subscribe(x => {
-        this.favourites = x.filter(y => y.userUid === this.currentUser);
+      this.firebaseService.getFavouritesList().subscribe(l => {
+        console.log
+        this.favourites = l.filter(y => y.userUid === this.currentUser);
       });
     });
   }
